@@ -1,0 +1,21 @@
+---
+title: "Practicum 2"
+author: "AJ Zenkowski, Anthony Luna, Allison Hacker"
+date: "5/1/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r load, echo=FALSE}
+# Load the required packages
+library(DeclareDesign)
+library(knitr)
+library(ggplot2)
+library(grid)
+library(gridExtra)
+library(dplyr)
+library(kableExtra)
+```
