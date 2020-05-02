@@ -58,7 +58,49 @@ for (i in 1:sims){
   store[i] <- mean(pop[sample(1:500,sam.n),] %>%
                      filter(R==1) %>%
                      pull(strong_coalition))
-} #in this for-loop, we're taking a random sample of households, subsetting out those that are "non-reporters" (R==0) and then taking the mean of their satisfaction. We do this "sims" number of times (1000).
+} 
+#in this for-loop, we're taking a random sample of survey respondents, subsetting out those that are "non-reporters" (R==0) and then taking the mean of their satisfaction. We do this "sims" number of times (1000).
 
+mean(pop$strong_coalition)
+
+sims <- 1000 #simulations
+sam.n <- 250 #attempted sample size
+store <- rep(NA, sims)
+
+
+## Strata Weights, Sampling Distribution Code
+for (i in 1:sims){
+  index <- sample(1:500,sam.n) #drawn sample
+  pop <- reporting(pop)
+  fisher <- mean(pop[index,] %>%
+               filter(R==1 & fisher==1) %>%
+               pull(strong_coalition))
+  supplier <- mean(pop[index,] %>%
+               filter(R==1 & fisher==0) %>%
+               pull(strong_coalition))
+  store[i] <- fisher * 0.5 + supplier * 0.5 
+}
+#In this for-loop, we're taking random draws of the sample (n=250) and then calculating the two mean levels of satisfaction: one for fishers (fisher==1)that are "reporters" (R==1) and one suppliers (fisher==0) that are "reporters" (R==1). Then, we multiple each of these means by their strata weights -- which are both 0.5 -- and sum them to get the sample mean.
+
+# Disproportionate sampling
+
+fisher.index <- which(pop$fisher==1) #respondent IDs corresponding to fishers (fisher==1)
+supplier.index <- which(pop$fisher==0) #respondent IDs corresponding to suppliers (fisher==0)
+  
+  sam <- c(sample(fisher.index,175),
+           sample(supplier.index,75)) #constructing a sample that contains 75 suppliers and 175 fishers.
+
+for (i in 1:sims){
+  sam <- c(sample(fisher.index,175),
+           sample(supplier.index,75)) #drawn sample #drawn sample
+  pop <- reporting(pop)
+  fisher[i] <- mean(pop[sam,] %>%
+               filter(R==1 & fisher==1) %>%
+               pull(strong_coalition))
+  supplier[i] <- mean(pop[sam,] %>%
+               filter(R==1 & fisher==0) %>%
+               pull(strong_coalition))
+  store[i] <- fisher[i] * 0.5 + supplier[i] * 0.5
+}
 ```
 
