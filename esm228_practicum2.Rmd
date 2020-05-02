@@ -19,3 +19,46 @@ library(gridExtra)
 library(dplyr)
 library(kableExtra)
 ```
+
+Measurement 2: Strong coalitions between fishermen and suppliers 
+## Target Population & Challenges
+
+*Target Population*: fishing vessel captains and fish suppliers
+
+*Challenge of drawing a representative sample*: 
+
+*Sampling procedure*: 
+
+## DeclareDesign()
+
+```{r pop}
+set.seed(228)
+population <- declare_population(
+  respondents = add_level(N=500, 
+     fisher=sample(c(rep(0,250),rep(1,250))),
+     strong_coalition=correlate(given = fisher, rho = 0.5,
+                         draw_binary, prob = 0.5)
+))
+
+pop <- population()
+
+kable(table(pop$fisher,pop$strong_coalition)) %>% 
+  add_header_above(c("fisher"=1,"strong_coalition"=2))
+
+reporting <- declare_assignment(blocks=fisher,
+                  assignment_variable = "R", 
+                  block_prob=c(0.7,0.3)) #Using declare_assignment to block random assign (RA) respondents to the reporting category. Respondents who are not fishers (ie suppliers) are more likely to be "reporters" (R==1), meaning that they are more likely to be in port/market when enumerators try to administer the survey.
+pop <- reporting(pop)
+
+sims <- 1000 #simulations
+sam.n <- 100 #attempted sample size
+
+store <- rep(NA, sims)
+for (i in 1:sims){
+  store[i] <- mean(pop[sample(1:500,sam.n),] %>%
+                     filter(R==1) %>%
+                     pull(strong_coalition))
+} #in this for-loop, we're taking a random sample of households, subsetting out those that are "non-reporters" (R==0) and then taking the mean of their satisfaction. We do this "sims" number of times (1000).
+
+```
+
