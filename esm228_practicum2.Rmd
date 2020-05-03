@@ -20,18 +20,13 @@ library(dplyr)
 library(kableExtra)
 ```
 
-Measurement 2: Strong coalitions between fishermen and suppliers 
-## Target Population & Challenges
 
-*Target Population*: 1000 total fishing vessel captains and fish suppliers in the Monterey, Santa Cruz, and Half-Moon Bay Area. The population contains 700 fishers and 300 fish suppliers. Since suppliers are on land more often than fishers they tend to be more involved in coalition planning and meetings than fishers and therefore are more likely to percieve the coalitions that they are a part of as strong compared to fishers.
+### Measurement 2: Strong coalitions between fishermen and suppliers 
 
-*Challenge of drawing a representative sample*: Fishing vessel captains are less likely to be in port and available to answer questions than fish suppliers.
-
-*Sampling procedure*: Stratify sampling with a more fishers than suppliers to 
-
-## Declare Population
+**Target Population**: 1000 total fishing vessel captains and fish suppliers in the Monterey, Santa Cruz, and Half-Moon Bay Area. The population contains 700 fishers and 300 fish suppliers. Since suppliers are on land more often than fishers they tend to be more involved in coalition planning and meetings than fishers and therefore are more likely to percieve the coalitions that they are a part of as strong compared to fishers.
 
 ```{r pop}
+## Declare Population
 set.seed(228)
 population <- declare_population(
   respondents = add_level(N=1000, 
@@ -43,8 +38,11 @@ population <- declare_population(
 pop <- population()
 
 kable(table(pop$fisher,pop$strong_coalition)) %>% 
-  add_header_above(c("fisher"=1,"strong_coalition"=2))
+  add_header_above(c("fisher"=1,"strong coalition"=2))
+```
 
+```{r declare-report}
+# Declare reporting probabilities
 reporting <- declare_assignment(blocks=fisher,
                   assignment_variable = "R", 
                   block_prob=c(0.7,0.3)) #Block randomly assign respondents to the reporting category. Respondents who are not fishers (ie suppliers) are more likely to be "reporters" (R==1), meaning that they are more likely to be in port/market when enumerators try to administer the survey.
@@ -54,10 +52,11 @@ kable(table(pop$fisher,pop$strong_coalition)) %>%
   add_header_above(c("fisher"=1,"strong_coalition"=2))
 ```
 
-*Challenge of drawing a representative sample*: Fishing vessel captains are spend a lot of their time out at sea, so they are less available to respond to a survey than fish suppliers are. Additionally, there are more fishermen than fish suppliers. These factors make it difficult to draw a representative sample from the population.
 
-```{r pop}
-# Declaration of reporting probabilities
+**Challenge of drawing a representative sample**: Fishing vessel captains are spend a lot of their time out at sea, so they are less available to respond to a survey than fish suppliers are. Additionally, there are more fishermen than fish suppliers. These factors make it difficult to draw a representative sample from the population.
+
+```{r disp-sample}
+# Constructing a disproportionate sample
 
 sims <- 1000 #simulations
 store <- rep(NA, sims)
@@ -71,9 +70,9 @@ supplier.index <- which(pop$fisher==0) #respondent IDs corresponding to supplier
            sample(supplier.index,75)) #constructing a sample that contains 75 suppliers and 275 fishers.
 ```
 
-*Sampling procedure*: Stratified sampling at ports and fish markets with unequal effort according to differences in likelihood of reporting between fishers and suppliers.
-```{r pop}
-# Stratified, disproportionate sampling
+**Sampling procedure**: Stratified sampling at ports and fish markets with unequal effort according to differences in likelihood of reporting between fishers and suppliers.
+```{r disp-strat}
+# Disproportionate stratification 
 for (i in 1:sims){
   sam <- c(sample(fisher.index,275),
            sample(supplier.index,75)) #drawn sample
