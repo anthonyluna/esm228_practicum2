@@ -34,8 +34,8 @@ Measurement 2: Strong coalitions between fishermen and suppliers
 ```{r pop}
 set.seed(228)
 population <- declare_population(
-  respondents = add_level(N=500, 
-     fisher=sample(c(rep(0,250),rep(1,250))),
+  respondents = add_level(N=1000, 
+     fisher=sample(c(rep(0,400),rep(1,600))),
      strong_coalition=correlate(given = fisher, rho = 0.5,
                          draw_binary, prob = 0.5)
 ))
@@ -47,8 +47,14 @@ kable(table(pop$fisher,pop$strong_coalition)) %>%
 
 reporting <- declare_assignment(blocks=fisher,
                   assignment_variable = "R", 
-                  block_prob=c(0.7,0.3)) #Using declare_assignment to block random assign (RA) respondents to the reporting category. Respondents who are not fishers (ie suppliers) are more likely to be "reporters" (R==1), meaning that they are more likely to be in port/market when enumerators try to administer the survey.
+                  block_prob=c(0.7,0.2)) #Using declare_assignment to block random assign (RA) respondents to the reporting category. Respondents who are not fishers (ie suppliers) are more likely to be "reporters" (R==1), meaning that they are more likely to be in port/market when enumerators try to administer the survey.
 pop <- reporting(pop)
+
+kable(table(pop$fisher,pop$strong_coalition)) %>% 
+  add_header_above(c("fisher"=1,"strong_coalition"=2))
+```
+
+```{r pop}
 
 sims <- 1000 #simulations
 sam.n <- 100 #attempted sample size
@@ -65,7 +71,7 @@ mean(pop$strong_coalition)
 
 sims <- 1000 #simulations
 sam.n <- 250 #attempted sample size
-store <- rep(NA, sims)
+store2 <- rep(NA, sims)
 
 
 ## Strata Weights, Sampling Distribution Code
@@ -78,10 +84,27 @@ for (i in 1:sims){
   supplier <- mean(pop[index,] %>%
                filter(R==1 & fisher==0) %>%
                pull(strong_coalition))
-  store[i] <- fisher * 0.5 + supplier * 0.5 
+  store2[i] <- fisher * 0.6 + supplier * 0.4 
 }
 #In this for-loop, we're taking random draws of the sample (n=250) and then calculating the two mean levels of satisfaction: one for fishers (fisher==1)that are "reporters" (R==1) and one suppliers (fisher==0) that are "reporters" (R==1). Then, we multiple each of these means by their strata weights -- which are both 0.5 -- and sum them to get the sample mean.
 
+# Proportionate histograms  
+  fisher.hist <- ggplot(data.frame(fisher), aes(x=fisher)) + 
+  geom_histogram(color="black", fill="white") +
+  xlab("Mean value of strata sample") +
+  geom_vline(xintercept = mean(pop$strong_coalition[pop$fisher==1]), linetype="dashed", color = "blue", size=1.5) +
+  ggtitle("Fisher, Proportionate") + xlim(c(0,1))
+
+supplier.hist <- ggplot(data.frame(supplier), aes(x=supplier)) + 
+  geom_histogram(color="black", fill="white") +
+  xlab("Mean value of strata sample") +
+  geom_vline(xintercept = mean(pop$strong_coalition[pop$fisher==0]), linetype="dashed", color = "blue", size=1.5) +
+  ggtitle("Supplie, Proportionate") + xlim(c(0,1))
+
+grid.arrange(fisher.hist,supplier.hist,ncol=2)
+```
+
+```{r pop}
 # Disproportionate sampling
 
 fisher.index <- which(pop$fisher==1) #respondent IDs corresponding to fishers (fisher==1)
@@ -92,7 +115,7 @@ supplier.index <- which(pop$fisher==0) #respondent IDs corresponding to supplier
 
 for (i in 1:sims){
   sam <- c(sample(fisher.index,175),
-           sample(supplier.index,75)) #drawn sample #drawn sample
+           sample(supplier.index,75)) #drawn sample
   pop <- reporting(pop)
   fisher[i] <- mean(pop[sam,] %>%
                filter(R==1 & fisher==1) %>%
@@ -100,7 +123,22 @@ for (i in 1:sims){
   supplier[i] <- mean(pop[sam,] %>%
                filter(R==1 & fisher==0) %>%
                pull(strong_coalition))
-  store[i] <- fisher[i] * 0.5 + supplier[i] * 0.5
+  store[i] <- fisher[i] * 0.6 + supplier[i] * 0.4
 }
+  
+# Disproportionate histograms  
+  fisher.hist2 <- ggplot(data.frame(fisher), aes(x=fisher)) + 
+  geom_histogram(color="black", fill="white") +
+  xlab("Mean value of strata sample") +
+  geom_vline(xintercept = mean(pop$strong_coalition[pop$fisher==1]), linetype="dashed", color = "blue", size=1.5) +
+  ggtitle("Fisher, DisProportionate") + xlim(c(0,1))
+
+supplier.hist2 <- ggplot(data.frame(supplier), aes(x=supplier)) + 
+  geom_histogram(color="black", fill="white") +
+  xlab("Mean value of strata sample") +
+  geom_vline(xintercept = mean(pop$strong_coalition[pop$fisher==0]), linetype="dashed", color = "blue", size=1.5) +
+  ggtitle("Supplier, DisProportionate") + xlim(c(0,1))
+
+grid.arrange(fisher.hist2,supplier.hist2,ncol=2)
 ```
 
