@@ -102,3 +102,53 @@ supplier.hist2 <- ggplot(data.frame(supplier), aes(x=supplier)) +
 grid.arrange(fisher.hist2,supplier.hist2,ncol=2)
 ```
 
+# Measurement 6: Improve traceability in the global seafood supply chain - Anthony
+
+**Target Population**:
+
+```{r pop_m6}
+#Declare your population
+```
+```{r delare-report_m6}
+#Declare Reporting Probabilities
+```
+
+
+**Challenge of drawing a representative sample**:
+```{r disp-sample_m6}
+#Constucting Disproportionate Sample
+```
+
+
+**Sampling procedure**: 
+```{r display-strat_m6}
+# Disproportionate stratification 
+# Disproportionate histograms  
+```
+
+
+
+# Measurement 1: Increase awareness for sustainable seafood 
+
+**Target Population**:
+
+```{r pop_m1}
+#Declare your population
+```
+```{r delare-report_m1}
+#Declare Reporting Probabilities
+```
+
+
+**Challenge of drawing a representative sample**:
+```{r disp-sample_m1}
+#Constucting Disproportionate Sample
+```
+
+
+**Sampling procedure**: 
+```{r display-strat_m1}
+# Disproportionate stratification 
+# Disproportionate histograms  
+```
+
