@@ -53,7 +53,7 @@ kable(table(pop$fisher,pop$strong_coalition)) %>%
 ```
 
 
-**Challenge of drawing a representative sample**: Fishing vessel captains are spend a lot of their time out at sea, so they are less available to respond to a survey than fish suppliers are. Additionally, there are more fishermen than fish suppliers. These factors make it difficult to draw a representative sample from the population.
+**Challenge of drawing a representative sample**: Fishing vessel captains spend a lot of their time out at sea, so they are less available to respond to a survey than fish suppliers are. Additionally, there are more fishermen than fish suppliers. These factors make it difficult to draw a representative sample from the population.
 
 ```{r disp-sample}
 # Constructing a disproportionate sample
@@ -102,7 +102,7 @@ supplier.hist2 <- ggplot(data.frame(supplier), aes(x=supplier)) +
 grid.arrange(fisher.hist2,supplier.hist2,ncol=2)
 ```
 
-# Measurement 6: Improve traceability in the global seafood supply chain - Anthony
+### Measurement 6: Improve traceability in the global seafood supply chain - Anthony
 
 **Target Population**: Products listed in the Seafood Watch "Best Choice" iist. We assume that farmed products are easier to meet compliance regarding traceability. This has an overall correlative impact such that $\rho = 0.8$. Products which are farmed and not farmed are based on the list provided by Sea Food Watch.https://www.seafoodwatch.org/-/m/sfw/pdf/guides/mba-seafoodwatch-west-coast-guide.pdf?la=en
 
@@ -206,7 +206,7 @@ strata_weighted_mean <- function(data){
 
 
 **Sampling procedure**: 
-```{r display-strat_m6}
+```{r display-strat_m6_1}
 # Disproportionate histograms  
 answer <- declare_estimator(
   handler = tidy_estimator(strata_weighted_mean),
@@ -222,7 +222,7 @@ diagnosis$diagnosands_df[,c(4,5,12,14)] %>%
 ```
 
 
-```{r display-strat_m6}
+```{r display-strat_m6_2}
 # Disproportionate histograms  
   farmed.hist2 <- ggplot(data.frame(diagnosis$simulations_df$estimate), aes(x=diagnosis$simulations_df$estimate)) + 
   geom_histogram(color="black", fill="white") +
@@ -235,7 +235,7 @@ farmed.hist2
 
 
 
-# Measurement 1: Increase awareness for sustainable seafood 
+### Measurement 1: Increase awareness for sustainable seafood 
 
 **Target Population**
 
