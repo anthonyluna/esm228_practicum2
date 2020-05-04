@@ -19,11 +19,177 @@ library(gridExtra)
 library(dplyr)
 library(kableExtra)
 ```
+# Background
+
+The Seafood Watch program is designed to improve practices, increase awareness, and create accountability within the seafood industry. To measure the impact of this program, the following eight measurement strategies are proposed. Three measures are further defined to demonstrate the cost effective sampling strategies that this team can employ to ensure cost effective measurement of programs while producing statistcally relevant measurements. We request that of the \$13 million budget, 5% should be admistered to perform measurement. This allows for $650,000 annually to carry out measurements that are crucial to guiding the future efforts of the program.
+
+# Measurement Definitions
+
+## Measurement 1 - Increase awareness for sustainable seafood 
+
+1. Measurement goal: 
+	  * Assess the level of exposure individuals have had to information regarding seafood sustainability.
+2. Exact measure to be taken (definition, survey item wording, etc.): Survey to be conducted at three frequently visited grocery stores in monterey county (Whole Foods, WalMart, Safeway). The wording will be as follows:
+	  * Are you familiar with the Monterey Bay Aquarium Seafood Watch Program?
+	  * Yes
+	  * No
+3. Unit of measurement: 
+	  * The individual respondent is the unit of measurement.
+4. Source of data: 
+	  * Third party sampling firm targeting Americans who consume seafood.
+5. Rationale for choice of measure: 
+	  * It is our intention to quantify how the reach of the Seafood Watch Program may or may not be expanding. We can also get a measure of public engagement trends by asking not only if consumers have heard of the program but also if they’ve participated via consumer guide or mobile app. While mobile app downloads are relatively simple to track, many more consumer guides have been printed and distributed so data regarding who’s been exposed to them would be useful. 
+6. Responsibility for data collection (who?): 
+	  * An independent third party sampling firm will be responsible for conducting the survey.
+7. Frequency of data collection: 
+	  * The survey will be conducted annually to evaluate trends in public awareness of the Seafood Watch program. 
+
+## Measurement 2 - Strong coalitions between fishermen and suppliers 
+
+1. Measurement goal: 
+	  * Assess the number and strength of coalitions between fishermen and suppliers
+2. Exact measure to be taken: 
+	  * Survey fishermen and suppliers using the following questions:
+	  * How many formal or informal fisheries management coalitions are you a part of? 
+	  * For each coalition, respond to the following statements with the given scale: disagree, somewhat disagree, neither agree nor disagree, somewhat agree, agree. 
+	  * The coalition has a clearly articulated goal.
+	  * The coalition facilitates communication and collaboration among members. 
+	  * The coalition has made reasonable progress toward achieving its stated goal.
+	  * I will continue to be an active member of this coalition.
+3. Unit of measurement:
+	* Individual survey respondent
+4. Source of data:
+	* Independent surveying firm sampling ports (fishermen) and fish markets (suppliers) at regular intervals.
+5. Rationale for choice of measure:
+	* This survey aims to capture four key factors that contribute to strong coalitions:
+	* sense of purpose, collaboration, accomplishment, and lasting engagement. These questions are more likely to give an unbiased picture of a coalition’s strength than simply asking survey respondents whether or not they think their coalition(s) are “strong”, since respondents may have different conceptions of what makes a strong coalition.
+6. Responsibility for data collection:
+	* The Monterey Bay Aquarium Seafood Watch program will hire an independent surveying firm to conduct the surveys. Since MBASW was involved in establishing or facilitating one or more coalitions, an outside party will reduce the potential for social desirability bias (ie. overstating the effectiveness of the coalition) among survey respondents.
+7. Frequency of data collection:
+	* Surveys are intended to track changes in coalition membership and strength over time. Therefore, surveys will be conducted annually to capture the emergence, evolution, and decline of coalitions.
+
+## Measurement 3 - Restore shark and bluefin tuna populations 
+
+1. Measurement goal
+	* Assess the population health and quantity of shark and bluefin tuna in areas affected by program activities
+2. Exact measure to be taken (definition, survey item wording, etc.)
+	* Catch counts of both shark and bluefin tuna in the pacific coast region
+	* Length of each counted shark and bluefin tuna to estimate age and health of counted populations
+3. Unit of measurement
+	* Year
+	* Count
+	* Length (meters)
+	* Weight (kilograms)
+4. Source of data
+	* Primary data collected by the International Scientific Committee for Tuna and Tuna-like Species
+	* Secondary data analysis - Monterey Bay Aquarium Seafood Watch Program using models provided by International Scientific Committee for Tuna and Tuna-like Species
+5. Rationale for choice of measure
+	* By observing count, length, and weight of caught shark and bluefin tuna catch populations over time, projections of total populations can be estimated using appropriate modelling. The data is currently produced by another organization, so in order to save costs, primary data collection will be outsourced and data analysis to tailor collected information to program goals will be done in house by Monterey Bay Aquarium Seafood Watch. By customizing analysis to concentrate on California specific data, attribution can be narrowed to the programs in effect in this area. The Seafood watch program is most active in california, so it is appropriate to tailor the model to data from within this region specifically.
+6. Responsibility for data collection (who?)
+	* Primary data collection - International Scientific Committee for Tuna and Tuna-like Specie
+	* Secondary data analysis - Monterey Bay Aquarium Seafood Watch Program
+7. Frequency of data collection
+	* Primary data reports are produced bi-annually for both shark and bluefin tuna species, therefore, analysis will be updated accordingly.
+
+## Measurement 4 - Strengthen fisheries management practices 
+
+1. Measurement goal:
+	* Assess the degree to which fisheries management policies meet United Nations Food and Agriculture Organization guidelines. 
+2. Exact measure to be taken:
+	* For each fishery, does it have a) a specified total allowable catch that is commensurate with the state of fisheries resources, b) a limit on the number of vessels in the fishery, c) a permit system to authorize vessels to fish, d) standards for fishing gear and practices that reduce bycatch, waste, and catch of juveniles, e) at least one marine protected area or off-limits fishing area within the fishery, f) provisions for the needs and interests of indigenous people and local fishing communities which are highly dependent on fishery resources for their livelihood, g) continuous monitoring of fish stocks and established threshold levels that if met would trigger a seasonal closure of the fishery, and/or h) a system by which fishery regulations are promulgated and enforced
+3. Unit of measurement:
+	* Individual species fisheries
+4. Source of data:
+	* A MBASW research associate will investigate the policies of individual fisheries in Northern California.
+5. Rationale for choice of measure:
+	* This measure uses fisheries management policies as a proxy for fisheries management practices. We assume that fisheries policies are followed by the majority of fishermen in the fishery so stronger management policies create stronger management practices. Tracking changes in policy through time is much less expensive and time-intensive than surveying individual fishermen about the fishery management practices. 
+6. Responsibility for data collection:
+	* Research associate employed by MBASW
+7. Frequency of data collection:
+	* Data will be collected for fisheries prior to program implementation and after program implementation. Data will also be collected for fisheries that were not part of the program at the beginning and end of program implementation period as points of comparison.
+
+## Measurement 5 - End illegal, unreported and unregulated (IUU) fishing
+
+1. Measurement goal:
+	* Assess how many tons of fish are being caught illegally in the Northern California fisheries.
+2. Exact measure to be taken:
+	* The “anchor points and influence table” approach (Pitcher et al., 2002) will be used to estimate the amount of IUU fishing in tons of fish landed. 
+3. Unit of measurement:
+	* Tons of fish landed per species
+4. Source of data:
+	* Data used in the “anchor points and influence table” method will be sourced from the Global Fishing Watch database, monitoring control and surveillance authorities, and local fisheries experts.
+5. Rationale for choice of measure:
+	* Illegal, unreported, and unregulated fishing is difficult to detect via surveys because it is socially undesirable and intentionally kept hidden from others due to potential criminal consequences. Using technology to collect data allows us to detect patterns that indicate illegal activity without needing to actually witness any illegal activity. Combining that with information gathered from regional fisheries experts allows us to “ground-truth” some of the data to further improve estimates of IUU fishing.
+6. Responsibility for data collection:
+	* Global Fishing Watch will collect and process Automatic Identification System, Vessel Monitoring System, and satellite data. A MBASW staff member will solicit data from monitoring control and surveillance authorities and local fisheries experts via email and telephone.
+7. Frequency of data collection:
+	* Global Fishing Watch data will be collected continuously and aggregated by year for three years preceding program implementation, every year during implementation, and for three years post-implementation. Data will be collected from monitoring control and surveillance authorities and local fisheries experts on an annual basis, ideally at the end of each fishing season.
+
+## Measurement 6 - Improve traceability in the global seafood supply chain 
+
+1. Measurement goal
+	* Assess the rate of full compliance with the measures and the accuracy of traceability as a function of adoption and compliance for those enrolled in Seafood Watch Program. 
+2. Exact measure to be taken (definition, survey item wording, etc.)
+	* Audit of individual products that are in track and trace program for compliance regarding individual metadatum collection.
+	* Audit of individual products that are in track and trace program for accuracy of individual metadatum.
+3. Unit of measurement
+	* Binary measure of compliance (compliant/non-compliant) per metadatum per product audited
+	* Binary measure of accurate metadatum (accurate/inaccurate) per metadatum collected per product audited
+4. Source of data
+	* Secondary data - Manifest and invoice collection for randomly selected products in program per product category
+	* Secondary data - Survey of entities through supply chain for matching manifests and invoices for randomly selected products in program per product category
+5. Rationale for choice of measure
+	* Program compliance is theorized to improve traceability of products and thus reduction in harmful activities. An audit of individual products in term of metadatum collection compliance and accuracy of collected metadatum demonstrate that the goals of track and trace are reflected in the implementation of the program
+6. Responsibility for data collection (who?)
+	* All secondary data collection activities are ascribed to Monterey Bay Aquarium. All secondary data creation activities are ascribed to the randomly selected participants in the program and the supply chains leading to retailers. In the event secondary data doesn’t exist, point of break in supply chain documentation for randomly selected participants are marked as ‘non-compliant’ in the metadata analysis. 
+7. Frequency of data collection
+	* Annual
+
+## Measurement 7 - Advancing policy through public pressure and purchasing power
+
+1. Measurement goal:
+	* Assess the amount of funding for policy action year over year by both gross dollar amount donated and number of donors. 
+2. Exact measure to be taken (definition, survey item wording, etc. ):
+	* The exact measures to be taken are the results of the annual accounting of donations. The total amount donated for the year and the total amount of individual donors are the specific measurements. 
+3. Unit of measurement:
+	* The units of measure are US dollars and individual people. 
+4. Source of data:
+	* The source of this data will be internal. The Monterey Bay Aquarium keeps records of all donations received and those will be our source. 
+5. Rationale for choice of measure:
+	* Our rationale for choosing total donation money is that with more funds available, the seafood watch program can have a greater reach in influencing policy to advance their sustainable fishing goals. We also chose the number of individual donors as an indicator of public engagement (pressure) on the issue. People vote with their dollars and it’s logical to assume that an increasing number of donors for the issue of sustainable fishing represents increasing public support for our cause. This was an important addition to the gross dollar amount metric so that unusually large contributions by few individuals don’t confound our measurement of general public support.  
+6. Responsibility for data collection (who?) :
+	* Donations are collected and recorded by staff of the Monterey Bay Aquarium. Donations tagged for the seafood watch program can easily be flagged for analysis by members of the seafood watch team. 
+7. Frequency of data collection:
+	* Because our goal is dependent on analyzing trends, this data needs to be collected and analyzed at least once a year. 
+
+## Measurement 8- Decreased demand for unsustainable seafood 
+
+1. Measurement goal:
+	* Analyze trends in public demand for seafood that is unsustainably fished. 
+2. Exact measure to be taken (definition, survey item wording, etc. ):
+	* Surveys will be conducted across communities in California to determine the rates at which different kinds of seafood are being consumed. The wording of the survey is as follows:
+	How many times in the past year have you purchased (specific fish of any of the three categories)?
+	0 times ,1-3 times ,4-6 times ,7-9 times ,10+ times
+	The survey will repeat this question with the five most commonly consumed fish of each of the three seafood watch categories (Best choice, good alternative, avoid). 
+3. Unit of measurement:
+	* The unit of measurement will be the individual respondent to the survey. 
+4. Source of data:
+	* Independent sampling firm targeting residents of California who consume seafood. 
+5. Rationale for choice of measure:
+	* We believe that by wording the survey questions intentionally we can get an accurate picture of respondents seafood consumption habits. No mention of the Seafood Watch program will be made. The survey will be sent through a group claiming to only be interested in general trends of fish consumption and not explicitly related to conservation or fisheries management in any way. The questions will be randomly ordered so that fish in the same categories aren’t grouped and respondents won’t know what the socially desirable answers might be. We’re choosing to include the five most commonly consumed fish in each category because we believe that will yield a larger dataset than if we randomly picked five fish from each category. If consumption trends are suspected to be shifting significantly for fish outside the five most consumed, the wording and choices will be revisited. 
+6. Responsibility for data collection (who?):
+	* The Monterey Bay Aquarium Seafood Watch program should contract an outside party to conduct the surveys under the guise of seeking general knowledge about citizens’ fish consumption habits. By removing themselves from the process, it is more likely that respondents will be unaware that Seafood Watch is affiliated and thus less likely to be influenced by a social desirability bias (ie. depressing their numbers of ‘avoid’ fish consumption or inflating their numbers for ‘best choice’ fish consumption). 
+7. Frequency of data collection:
+	* The survey shall be conducted yearly for a period of at least five years so that an accurate estimate of trends can be conducted. 
 
 
-### Measurement 2: Strong coalitions between fishermen and suppliers 
+# Sampling Procedures
 
-**Target Population**: 1000 total fishing vessel captains and fish suppliers in the Monterey, Santa Cruz, and Half-Moon Bay Area. The population contains 700 fishers and 300 fish suppliers. Since suppliers are on land more often than fishers they tend to be more involved in coalition planning and meetings than fishers and therefore are more likely to percieve the coalitions that they are a part of as strong compared to fishers.
+## Measurement 2: Strong coalitions between fishermen and suppliers 
+
+**Target Population**: 
+
+1000 total fishing vessel captains and fish suppliers in the Monterey, Santa Cruz, and Half-Moon Bay Area. The population contains 700 fishers and 300 fish suppliers. Since suppliers are on land more often than fishers they tend to be more involved in coalition planning and meetings than fishers and therefore are more likely to percieve the coalitions that they are a part of as strong compared to fishers.
 
 ```{r pop}
 ## Declare Population
@@ -56,7 +222,9 @@ kable(table(pop$fisher,pop$strong_coalition)) %>%
   add_header_above(c("fisher"=1,"strong_coalition"=2))
 ```
 
-**Challenge of drawing a representative sample**: Fishing vessel captains spend a lot of their time out at sea, so they are less available to respond to a survey than fish suppliers are. Additionally, there are more fishermen than fish suppliers. These factors make it difficult to draw a representative sample from the population.
+**Challenge of drawing a representative sample**: 
+
+Fishing vessel captains spend a lot of their time out at sea, so they are less available to respond to a survey than fish suppliers are. Additionally, there are more fishermen than fish suppliers. These factors make it difficult to draw a representative sample from the population.
 
 ```{r disp-sample}
 # Constructing a disproportionate sample
@@ -73,7 +241,9 @@ supplier.index <- which(pop$fisher==0) #respondent IDs corresponding to supplier
            sample(supplier.index,75)) #constructing a sample that contains 75 suppliers and 225 fishers.
 ```
 
-**Sampling procedure**: Stratified sampling at ports and fish markets with unequal effort according to differences in likelihood of reporting between fishers and suppliers. 225 fishermen and 75 suppliers were sampled because this yields roughly the same amount of uncertainty for each group (~5%) and brings the total uncertainty to ~4%.
+**Sampling procedure**: 
+
+Stratified sampling at ports and fish markets with unequal effort according to differences in likelihood of reporting between fishers and suppliers. 225 fishermen and 75 suppliers were sampled because this yields roughly the same amount of uncertainty for each group (~5%) and brings the total uncertainty to ~4%.
 ```{r disp-strat}
 # Disproportionate stratification 
 for (i in 1:sims){
@@ -109,9 +279,11 @@ sd(fisher)
 sd(supplier)
 ```
 
-### Measurement 6: Improve traceability in the global seafood supply chain - Anthony
+## Measurement 6: Improve traceability in the global seafood supply chain - Anthony
 
-**Target Population**: Products listed in the Seafood Watch "Best Choice" iist. We assume that farmed products are easier to meet compliance regarding traceability. This has an overall correlative impact such that $\rho = 0.7$. Products which are farmed and not farmed are based on the list provided by Sea Food Watch.https://www.seafoodwatch.org/-/m/sfw/pdf/guides/mba-seafoodwatch-west-coast-guide.pdf?la=en
+**Target Population**: 
+
+Products listed in the Seafood Watch "Best Choice" iist. We assume that farmed products are easier to meet compliance regarding traceability. This assumed to have an overall correlative impact such that $\rho = 0.7$. Products which are farmed and not farmed are based on the list provided by Seafood Watch (Seafood Watch, 2020).
 
 ```{r pop_m6}
 #Declare your population
@@ -165,7 +337,10 @@ my_estimand <- declare_estimand(mean(product_compliant),label="Ybar")
 kable(table(pop$category_farmed,pop$product_compliant)) %>% 
   add_header_above(c("Category Farmed"=1,"Category Compliance"=2))
 ```
-**Challenge of drawing a representative sample**: Those with better track and trace standard operating procedures will be more open to reporting, whereas those with less effective standards may be less likely to agree to an audit for fear of discovery of inadequate documentation.This is associated with compliance and farmed fish are assumed to have higher rate of compliance, therefore, the expected reporting reporting will be weighted such that 
+
+**Challenge of drawing a representative sample**: 
+
+Those with better track and trace standard operating procedures will be more open to reporting, whereas those with less effective standards may be less likely to agree to an audit for fear of discovery of inadequate documentation.This is associated with compliance and farmed fish are assumed to have higher rate of compliance, therefore, the expected reporting reporting will be weighted such that 
 
 ```{r delare-report_m6}
 #Declare Reporting Probabilities
@@ -185,7 +360,9 @@ kable(table(reported$category_farmed,reported$R)) %>%
 ```
 
 
-**Sampling procedure**: The sampling procedure first assumes that 25% of products (n= 210) is an economically viable number of products to audit. Second, based on reporting assumptions of 50% and 90% for non-farmed and farmed fish respectively, the surveyed products are randomly selected from each strata proportional to their reporting rate.This results in 111 and 99 non-farmed and farmed products audited respectively.
+**Sampling procedure**: 
+
+The sampling procedure first assumes that 25% of products (n= 210) is an economically viable number of products to audit. Second, based on reporting assumptions of 50% and 90% for non-farmed and farmed fish respectively, the surveyed products are randomly selected from each strata proportional to their reporting rate.This results in 111 and 99 non-farmed and farmed products audited respectively.
 
 ```{r disp-sample_m6}
 
@@ -213,8 +390,6 @@ strata_weighted_mean <- function(data){
 ```
 
 
-
-**Sampling procedure**: 
 ```{r display-strat_m6_1}
 # Disproportionate histograms  
 answer <- declare_estimator(
@@ -242,7 +417,7 @@ diagnosis$diagnosands_df[,c(4,5,12,14)] %>%
 farmed.hist2
 ```
 
-
+The sampling procuder will produce an overall compliance rate within 3.8% of the true compliance rate. This is not ideal, however given budget constraints this seems like a reasonably effective strategy
 
 ### Measurement 1: Increase awareness for sustainable seafood 
 
@@ -286,7 +461,7 @@ sampling <- declare_sampling(strata=store, #because there are less possible resp
 
 Sampling using the weighted stratifications.
 
-```{r display-strat_m1}
+```{r function-strat_m1}
 strata_weighted_mean <- function(data){
   data.frame(  
   estimator_label = "strata_w_mean",
@@ -317,3 +492,18 @@ diagnosis$diagnosands_df[,c(4,5,12,14)] %>% #output of sd and se statistics
   kable()
 ```
 
+```{r display-strat_m1}
+# Disproportionate histograms  
+  grocery.hist2 <- ggplot(data.frame(diagnosis$simulations_df$estimate), aes(x=diagnosis$simulations_df$estimate)) + 
+  geom_histogram(color="black", fill="white") +
+  xlab("Mean value of strata sample") +
+  geom_vline(xintercept = mean(pop$familiar), linetype="dashed", color = "blue", size=1.5) +
+  ggtitle("Familiar with Program") + xlim(c(0,1))
+
+grocery.hist2
+```
+# Bibliography:
+
+Pitcher, T. J., Watson, R., Forrest, R., Valtýsson, H. Þ., & Guénette, S. (2002). Estimating illegal and unreported catches from marine ecosystems: A basis for change. Fish and Fisheries, 3(4), 317–339. https://doi.org/10.1046/j.1467-2979.2002.00093.x
+
+Seafood Watch (2020), Consumer Guide, Accessed: 5/3/2020. URL: https://www.seafoodwatch.org/-/m/sfw/pdf/guides/mba-seafoodwatch-west-coast-guide.pdf?la=en
