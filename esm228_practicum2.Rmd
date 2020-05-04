@@ -130,25 +130,60 @@ grid.arrange(fisher.hist2,supplier.hist2,ncol=2)
 
 # Measurement 1: Increase awareness for sustainable seafood 
 
-**Target Population**:
+**Target Population**
+
+Our target population that the sample will try to represent is the population of adults in Monterey County California (World Population Review 2019). The survey will seek to establish their awareness of sustainable seafood by asking if they're familiar with the Seafood Watch Program. The survey will take place outside three frequently visited grocery stores: Whole Foods, Safeway, and WalMart. The chosen baselines were based on the idea that those who shop at more expensive grocery stores are more likely to have heard of Seafood watch, with half the population of Whole Foods Shoppers expected to be familiar with the program. The number of shoppers available for surveying is based off of the daily foot traffic of each store. 
+
 
 ```{r pop_m1}
-#Declare your population
-```
-```{r delare-report_m1}
-#Declare Reporting Probabilities
+set.seed(228)
+population <- declare_population(
+  store = add_level(N=3,
+                    baseline = c(0.5, 0.3, 0.2)), #guessing that half of Whole Foods shoppers are familiar with seafood watch, 30 percent of Safeway shoppers, and 20 percent of WalMart shoppers.
+     shoppers = add_level(N=c(404,1279,1899),
+     familiar=draw_binary(baseline)))
+
+pop <- population()
+pop.vector <- c(404,1279,1899)
+
+my_estimand <- declare_estimands(mean(familiar),
+                                 label = "Ybar")
+
+reporting <- declare_assignment(prob=0.4, #assume forty percent of people asked will be willing to take the survey
+                  assignment_variable = "R")
+
+
 ```
 
 
 **Challenge of drawing a representative sample**:
+
+Shoppers at certain grocery stores may not be representative of the entire population of Monterey County. Things that can influence likelihood of familiarity with the Seafood Watch Program include economic status and seafood consumption practices. Both of these have an effect on where a person shops. To counteract this effect, three stores with diverse clientele across customers were chosen. Because income is correllated with sustainable food preferences, the stores with more expensive products are more likely to have customers familiar with the program and were weighted as such. 
 ```{r disp-sample_m1}
-#Constucting Disproportionate Sample
+
+sampling <- declare_sampling(strata=store, #because there are less possible respondents at whole foods, we will take 75 responses there and 100 at both Safeway and Wal Mart.
+               strata_n=c(75,100,100))
 ```
 
 
 **Sampling procedure**: 
+
+Sampling used the weighted stratifications.
+
 ```{r display-strat_m1}
-# Disproportionate stratification 
-# Disproportionate histograms  
+strata_weighted_mean <- function(data){
+  data.frame(  
+  estimator_label = "strata_w_mean",
+  estimand_label = "Ybar",
+  n = nrow(data),
+  stringsAsFactors = FALSE,
+  
+  estimate = data %>% filter(R==1) %>% 
+    group_by(store) %>% 
+    summarise(mean=mean(familiar)) %>%
+    mutate(prop=pop.vector/sum(pop.vector)) %>% 
+    mutate(sub.mean=mean*prop) %>% pull(sub.mean) %>% 
+    sum())
+}  
 ```
 
