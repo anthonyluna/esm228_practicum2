@@ -104,19 +104,78 @@ grid.arrange(fisher.hist2,supplier.hist2,ncol=2)
 
 # Measurement 6: Improve traceability in the global seafood supply chain - Anthony
 
-**Target Population**:
+**Target Population**: Products listed in the Seafood Watch "Best Choice" iist. We assume that domestic and farmed products are easier to meet compliance regarding traceability.This is represented by a weighting of domestic and farmed at $0.3$ and $0.7$ respectively. This has an overall correlative impact such that $\rho = 0.5$.
 
 ```{r pop_m6}
 #Declare your population
+## Declare Population
+
+# Product Categories in best choice list. 
+best_choice_categories <- c("Arctic Char (farmed)",
+"Barramundi (US & Vietnam farmed)",
+"Bass: Striped (US hooks and lines, farmed)",
+"Catfish (US)",
+"Clams, Cockles, Mussels Cod: Pacific (AK)",
+"Crab: King, Snow & Tanner (AK)",
+"Lingcod (CA, OR & WA)",
+"Oysters (farmed & Canada)",
+"Prawn (Canada & US)",
+"Rockfish (AK, CA, OR & WA)",
+"Sablefish/Black Cod (AK)",
+"Salmon (New Zealand, WA lift nets)",
+"Sanddab (CA, OR & WA)",
+"Scallops (farmed)",
+"Shrimp (US farmed)",
+"Squid (US)",
+"Sole (US)",
+"Tilapia (Canada, Ecuador, Peru & US)",
+"Trout (US farmed)",
+"Tuna: Albacore (trolls, pole and lines)",
+"Tuna: Skipjack (Pacific trolls, pole and lines)")
+
+# Assume that there are 100 products in each category
+
+best_choice_list <- rep(best_choice_categories,100)
+
+set.seed(226)
+population <- declare_population(
+    best_choice_product_uid = add_level(N=length(best_choice_list), 
+     best_choice_category=sample(best_choice_list),
+     farmed = case_when(grepl("*farmed*",best_choice_category)~.7,T~0 ),
+     domestic = case_when(grepl("(AK|CA|OR|WA|US)",best_choice_category)~.3,T~0),
+     track_ease = farmed+domestic,
+     # Assume 7 metadatum
+     product_compliant = correlate(given=track_ease, rho = .5,draw_binary,prob=.8)
+))
+
+pop <- population()
+
+kable(table(pop$best_choice_category,pop$product_compliant)) %>% 
+  add_header_above(c("Category"=1,"Category Compliance"=2))
 ```
 ```{r delare-report_m6}
 #Declare Reporting Probabilities
+reporting <- declare_assignment(prob=0.8) #Block randomly assign respondents to the reporting category. Respondents who are not fishers (ie suppliers) are more likely to be "reporters" (R==1), meaning that they are more likely to be in port/market when enumerators try to administer the survey.
+reporting <- reporting(pop)
+
+kable(table(pop$best_choice_category,pop$product_compliant)) %>% 
+  add_header_above(c("Category"=1,"Category Compliance"=2))
 ```
 
 
 **Challenge of drawing a representative sample**:
 ```{r disp-sample_m6}
 #Constucting Disproportionate Sample
+sims <- 1000 #simulations
+store <- rep(NA, sims)
+fisher <- rep(NA, sims)
+supplier <- rep(NA, sims)
+
+fisher.index <- which(pop$fisher==1) #respondent IDs corresponding to fishers (fisher==1)
+supplier.index <- which(pop$fisher==0) #respondent IDs corresponding to suppliers (fisher==0)
+  
+  sam <- c(sample(fisher.index,275),
+           sample(supplier.index,75)) #constructing a sample that contains 75 suppliers and 275 fishers.
 ```
 
 
@@ -124,6 +183,33 @@ grid.arrange(fisher.hist2,supplier.hist2,ncol=2)
 ```{r display-strat_m6}
 # Disproportionate stratification 
 # Disproportionate histograms  
+for (i in 1:sims){
+  sam <- c(sample(fisher.index,275),
+           sample(supplier.index,75)) #drawn sample
+  pop <- reporting(pop)
+  fisher[i] <- mean(pop[sam,] %>%
+               filter(R==1 & fisher==1) %>%
+               pull(strong_coalition))
+  supplier[i] <- mean(pop[sam,] %>%
+               filter(R==1 & fisher==0) %>%
+               pull(strong_coalition))
+  store[i] <- fisher[i] * 0.7 + supplier[i] * 0.3
+}
+  
+# Disproportionate histograms  
+  fisher.hist2 <- ggplot(data.frame(fisher), aes(x=fisher)) + 
+  geom_histogram(color="black", fill="white") +
+  xlab("Mean value of strata sample") +
+  geom_vline(xintercept = mean(pop$strong_coalition[pop$fisher==1]), linetype="dashed", color = "blue", size=1.5) +
+  ggtitle("Fishers") + xlim(c(0,1))
+
+supplier.hist2 <- ggplot(data.frame(supplier), aes(x=supplier)) + 
+  geom_histogram(color="black", fill="white") +
+  xlab("Mean value of strata sample") +
+  geom_vline(xintercept = mean(pop$strong_coalition[pop$fisher==0]), linetype="dashed", color = "blue", size=1.5) +
+  ggtitle("Suppliers") + xlim(c(0,1))
+
+grid.arrange(fisher.hist2,supplier.hist2,ncol=2)
 ```
 
 
