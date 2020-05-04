@@ -1,6 +1,6 @@
 ---
 title: "Practicum 2"
-author: "AJ Zenkowski, Anthony Luna, Allison Hacker"
+author: "AJ Zenkanowski, Anthony Luna, Allison Hacker"
 date: "5/1/2020"
 output: html_document
 ---
