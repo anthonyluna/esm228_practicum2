@@ -104,7 +104,7 @@ grid.arrange(fisher.hist2,supplier.hist2,ncol=2)
 
 # Measurement 6: Improve traceability in the global seafood supply chain - Anthony
 
-**Target Population**: Products listed in the Seafood Watch "Best Choice" iist. We assume that farmed products are easier to meet compliance regarding traceability. This has an overall correlative impact such that $\rho = 0.8$. Products which are farmed and not farmed are based on the list provided by Sea Food Watch.
+**Target Population**: Products listed in the Seafood Watch "Best Choice" iist. We assume that farmed products are easier to meet compliance regarding traceability. This has an overall correlative impact such that $\rho = 0.8$. Products which are farmed and not farmed are based on the list provided by Sea Food Watch.https://www.seafoodwatch.org/-/m/sfw/pdf/guides/mba-seafoodwatch-west-coast-guide.pdf?la=en
 
 ```{r pop_m6}
 #Declare your population
