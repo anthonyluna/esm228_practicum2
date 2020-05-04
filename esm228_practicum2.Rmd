@@ -168,7 +168,7 @@ sampling <- declare_sampling(strata=store, #because there are less possible resp
 
 **Sampling procedure**: 
 
-Sampling used the weighted stratifications.
+Sampling using the weighted stratifications.
 
 ```{r display-strat_m1}
 strata_weighted_mean <- function(data){
