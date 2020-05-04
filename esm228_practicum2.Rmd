@@ -69,10 +69,10 @@ fisher.index <- which(pop$fisher==1) #respondent IDs corresponding to fishers (f
 supplier.index <- which(pop$fisher==0) #respondent IDs corresponding to suppliers (fisher==0)
   
   sam <- c(sample(fisher.index,225),
-           sample(supplier.index,75)) #constructing a sample that contains 75 suppliers and 275 fishers.
+           sample(supplier.index,75)) #constructing a sample that contains 75 suppliers and 225 fishers.
 ```
 
-**Sampling procedure**: Stratified sampling at ports and fish markets with unequal effort according to differences in likelihood of reporting between fishers and suppliers.
+**Sampling procedure**: Stratified sampling at ports and fish markets with unequal effort according to differences in likelihood of reporting between fishers and suppliers. 225 fishermen and 75 suppliers were sampled because this yields roughly the same amount of uncertainty for each group (~5%) and brings the total uncertainty to ~4%.
 ```{r disp-strat}
 # Disproportionate stratification 
 for (i in 1:sims){
@@ -103,7 +103,7 @@ supplier.hist2 <- ggplot(data.frame(supplier), aes(x=supplier)) +
 
 grid.arrange(fisher.hist2,supplier.hist2,ncol=2)
 
-store_sd <- sd(store)
+sd(store)
 sd(fisher)
 sd(supplier)
 ```
