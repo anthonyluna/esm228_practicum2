@@ -138,12 +138,12 @@ category_farmed <- case_when(grepl("*farmed*",best_choice_categories)~1,T~0 )
 
 best_choice_list <- rep(best_choice_categories,40)
 
-set.seed(226)
+set.seed(256)
 population <- declare_population(
     category = add_level(N=length(best_choice_categories),
                          category_farmed = category_farmed),
     product = add_level(N=rep(40,length(best_choice_categories)), product_farmed = category_farmed,
-                        product_compliant = correlate(given=category_farmed, rho = 0.8,draw_binary,prob=.8))
+                        product_compliant = correlate(given=category_farmed, rho = 0.3,draw_binary,prob=.8))
 )
 
 pop <- population()
@@ -161,8 +161,18 @@ kable(table(pop$category_farmed,pop$product_compliant)) %>%
 
 ```{r delare-report_m6}
 #Declare Reporting Probabilities
+#reporting <- declare_assignment(prob=.8,assignment_variable="R")
+category_farmed_prob <- case_when(grepl("*farmed*",best_choice_categories)~.9,T~0.5 )
 
-reporting <- declare_assignment(prob=.8,assignment_variable="R")
+reporting <- declare_assignment(blocks=category,block_prob=category_farmed_prob,assignment_variable="R")
+
+reported <- reporting(pop)
+
+reported_prop <- c(as.numeric(tally(reported %>%filter(R==1) %>%  group_by(category_farmed))[1,2]),
+                   as.numeric(tally(reported %>%filter(R==1) %>%  group_by(category_farmed))[2,2]))
+
+kable(table(reported$category_farmed,reported$R)) %>% 
+  add_header_above(c("Category Farmed"=1,"reports"=2))
 
 ```
 
@@ -171,10 +181,11 @@ reporting <- declare_assignment(prob=.8,assignment_variable="R")
 
 ```{r disp-sample_m6}
 
+percent_strat <- reported_prop/sum(reported_prop)
 percent_sampled <- .05
 
 sampling <- declare_sampling(strata=category_farmed,
-                 strata_n=pop.vector*percent_sampled)
+                 strata_n=pop.vector*percent_sampled*percent_strat)
 
 strata_weighted_mean <- function(data){
   data.frame(  
@@ -214,12 +225,6 @@ diagnosis$diagnosands_df[,c(4,5,12,14)] %>%
 ```{r display-strat_m6}
 # Disproportionate histograms  
   farmed.hist2 <- ggplot(data.frame(diagnosis$simulations_df$estimate), aes(x=diagnosis$simulations_df$estimate)) + 
-  geom_histogram(color="black", fill="white") +
-  xlab("Mean value of strata sample") +
-  geom_vline(xintercept = mean(pop$product_compliant), linetype="dashed", color = "blue", size=1.5) +
-  ggtitle("Compliant Products") + xlim(c(0,1))
-
-not_farmed.hist2 <- ggplot(data.frame(diagnosis$simulations_df$estimate), aes(x=diagnosis$simulations_df$estimate)) + 
   geom_histogram(color="black", fill="white") +
   xlab("Mean value of strata sample") +
   geom_vline(xintercept = mean(pop$product_compliant), linetype="dashed", color = "blue", size=1.5) +
