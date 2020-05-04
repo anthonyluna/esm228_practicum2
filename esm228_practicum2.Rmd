@@ -38,6 +38,8 @@ population <- declare_population(
 pop <- population()
 
 
+my_estimand <- declare_estimand(mean(strong_coalition),label="Ybar")
+pop_mean <- mean(pop$strong_coalition)
 
 kable(table(pop$fisher,pop$strong_coalition)) %>% 
   add_header_above(c("fisher"=1,"strong coalition"=2))
@@ -54,8 +56,7 @@ kable(table(pop$fisher,pop$strong_coalition)) %>%
   add_header_above(c("fisher"=1,"strong_coalition"=2))
 ```
 
-
-**Challenge of drawing a representative sample**: Fishing vessel captains are spend a lot of their time out at sea, so they are less available to respond to a survey than fish suppliers are. Additionally, there are more fishermen than fish suppliers. These factors make it difficult to draw a representative sample from the population.
+**Challenge of drawing a representative sample**: Fishing vessel captains spend a lot of their time out at sea, so they are less available to respond to a survey than fish suppliers are. Additionally, there are more fishermen than fish suppliers. These factors make it difficult to draw a representative sample from the population.
 
 ```{r disp-sample}
 # Constructing a disproportionate sample
@@ -68,15 +69,15 @@ supplier <- rep(NA, sims)
 fisher.index <- which(pop$fisher==1) #respondent IDs corresponding to fishers (fisher==1)
 supplier.index <- which(pop$fisher==0) #respondent IDs corresponding to suppliers (fisher==0)
   
-  sam <- c(sample(fisher.index,275),
-           sample(supplier.index,75)) #constructing a sample that contains 75 suppliers and 275 fishers.
+  sam <- c(sample(fisher.index,225),
+           sample(supplier.index,75)) #constructing a sample that contains 75 suppliers and 225 fishers.
 ```
 
-**Sampling procedure**: Stratified sampling at ports and fish markets with unequal effort according to differences in likelihood of reporting between fishers and suppliers.
+**Sampling procedure**: Stratified sampling at ports and fish markets with unequal effort according to differences in likelihood of reporting between fishers and suppliers. 225 fishermen and 75 suppliers were sampled because this yields roughly the same amount of uncertainty for each group (~5%) and brings the total uncertainty to ~4%.
 ```{r disp-strat}
 # Disproportionate stratification 
 for (i in 1:sims){
-  sam <- c(sample(fisher.index,275),
+  sam <- c(sample(fisher.index,225),
            sample(supplier.index,75)) #drawn sample
   pop <- reporting(pop)
   fisher[i] <- mean(pop[sam,] %>%
@@ -102,9 +103,13 @@ supplier.hist2 <- ggplot(data.frame(supplier), aes(x=supplier)) +
   ggtitle("Suppliers") + xlim(c(0,1))
 
 grid.arrange(fisher.hist2,supplier.hist2,ncol=2)
+
+sd(store)
+sd(fisher)
+sd(supplier)
 ```
 
-# Measurement 6: Improve traceability in the global seafood supply chain - Anthony
+### Measurement 6: Improve traceability in the global seafood supply chain - Anthony
 
 **Target Population**: Products listed in the Seafood Watch "Best Choice" iist. We assume that farmed products are easier to meet compliance regarding traceability. This has an overall correlative impact such that $\rho = 0.7$. Products which are farmed and not farmed are based on the list provided by Sea Food Watch.https://www.seafoodwatch.org/-/m/sfw/pdf/guides/mba-seafoodwatch-west-coast-guide.pdf?la=en
 
@@ -155,6 +160,7 @@ pop.vector <- c(as.numeric(tally(pop %>% group_by(category_farmed))[1,2]),
 
 
 my_estimand <- declare_estimand(mean(product_compliant),label="Ybar")
+
 
 kable(table(pop$category_farmed,pop$product_compliant)) %>% 
   add_header_above(c("Category Farmed"=1,"Category Compliance"=2))
@@ -208,7 +214,8 @@ strata_weighted_mean <- function(data){
 
 
 
-```{r display-strat_m6}
+**Sampling procedure**: 
+```{r display-strat_m6_1}
 # Disproportionate histograms  
 answer <- declare_estimator(
   handler = tidy_estimator(strata_weighted_mean),
@@ -224,7 +231,7 @@ diagnosis$diagnosands_df[,c(4,5,12,14)] %>%
 ```
 
 
-```{r display-strat_m6}
+```{r display-strat_m6_2}
 # Disproportionate histograms  
   farmed.hist2 <- ggplot(data.frame(diagnosis$simulations_df$estimate), aes(x=diagnosis$simulations_df$estimate)) + 
   geom_histogram(color="black", fill="white") +
@@ -237,7 +244,7 @@ farmed.hist2
 
 
 
-# Measurement 1: Increase awareness for sustainable seafood 
+### Measurement 1: Increase awareness for sustainable seafood 
 
 **Target Population**
 
@@ -294,5 +301,19 @@ strata_weighted_mean <- function(data){
     mutate(sub.mean=mean*prop) %>% pull(sub.mean) %>% 
     sum())
 }  
+```
+
+```{r}
+answer <- declare_estimator(
+  handler = tidy_estimator(strata_weighted_mean),
+  estimand = my_estimand)
+
+design <- population + my_estimand + reporting +
+          sampling + answer
+
+diagnosis <- diagnose_design(design, sims = 1000)
+
+diagnosis$diagnosands_df[,c(4,5,12,14)] %>% #output of sd and se statistics
+  kable()
 ```
 
