@@ -37,6 +37,8 @@ population <- declare_population(
 
 pop <- population()
 
+
+
 kable(table(pop$fisher,pop$strong_coalition)) %>% 
   add_header_above(c("fisher"=1,"strong coalition"=2))
 ```
@@ -104,7 +106,7 @@ grid.arrange(fisher.hist2,supplier.hist2,ncol=2)
 
 # Measurement 6: Improve traceability in the global seafood supply chain - Anthony
 
-**Target Population**: Products listed in the Seafood Watch "Best Choice" iist. We assume that farmed products are easier to meet compliance regarding traceability. This has an overall correlative impact such that $\rho = 0.8$. Products which are farmed and not farmed are based on the list provided by Sea Food Watch.https://www.seafoodwatch.org/-/m/sfw/pdf/guides/mba-seafoodwatch-west-coast-guide.pdf?la=en
+**Target Population**: Products listed in the Seafood Watch "Best Choice" iist. We assume that farmed products are easier to meet compliance regarding traceability. This has an overall correlative impact such that $\rho = 0.7$. Products which are farmed and not farmed are based on the list provided by Sea Food Watch.https://www.seafoodwatch.org/-/m/sfw/pdf/guides/mba-seafoodwatch-west-coast-guide.pdf?la=en
 
 ```{r pop_m6}
 #Declare your population
@@ -143,7 +145,7 @@ population <- declare_population(
     category = add_level(N=length(best_choice_categories),
                          category_farmed = category_farmed),
     product = add_level(N=rep(40,length(best_choice_categories)), product_farmed = category_farmed,
-                        product_compliant = correlate(given=category_farmed, rho = 0.3,draw_binary,prob=.8))
+                        product_compliant = correlate(given=category_farmed, rho = 0.7,draw_binary,prob=.8))
 )
 
 pop <- population()
@@ -157,7 +159,7 @@ my_estimand <- declare_estimand(mean(product_compliant),label="Ybar")
 kable(table(pop$category_farmed,pop$product_compliant)) %>% 
   add_header_above(c("Category Farmed"=1,"Category Compliance"=2))
 ```
-**Challenge of drawing a representative sample**: Those with better track and trace standard operating procedures will be more open to reporting, whereas those with less effective standards may be less likely to agree to an audit for fear of discovery of inadequate documentation.
+**Challenge of drawing a representative sample**: Those with better track and trace standard operating procedures will be more open to reporting, whereas those with less effective standards may be less likely to agree to an audit for fear of discovery of inadequate documentation.This is associated with compliance and farmed fish are assumed to have higher rate of compliance, therefore, the expected reporting reporting will be weighted such that 
 
 ```{r delare-report_m6}
 #Declare Reporting Probabilities
@@ -170,22 +172,22 @@ reported <- reporting(pop)
 
 reported_prop <- c(as.numeric(tally(reported %>%filter(R==1) %>%  group_by(category_farmed))[1,2]),
                    as.numeric(tally(reported %>%filter(R==1) %>%  group_by(category_farmed))[2,2]))
-
+reported_prop <- reported_prop/sum(reported_prop)
 kable(table(reported$category_farmed,reported$R)) %>% 
   add_header_above(c("Category Farmed"=1,"reports"=2))
 
 ```
 
 
-
+**Sampling procedure**: The sampling procedure first assumes that 25% of products (n= 210) is an economically viable number of products to audit. Second, based on reporting assumptions of 50% and 90% for non-farmed and farmed fish respectively, the surveyed products are randomly selected from each strata proportional to their reporting rate.This results in 111 and 99 non-farmed and farmed products audited respectively.
 
 ```{r disp-sample_m6}
 
-percent_strat <- reported_prop/sum(reported_prop)
-percent_sampled <- .05
+percent_strat <- reported_prop
+percent_sampled <- .25
 
 sampling <- declare_sampling(strata=category_farmed,
-                 strata_n=pop.vector*percent_sampled*percent_strat)
+                 strata_n=sum(pop.vector)*percent_sampled*percent_strat)
 
 strata_weighted_mean <- function(data){
   data.frame(  
@@ -205,7 +207,7 @@ strata_weighted_mean <- function(data){
 ```
 
 
-**Sampling procedure**: 
+
 ```{r display-strat_m6}
 # Disproportionate histograms  
 answer <- declare_estimator(
